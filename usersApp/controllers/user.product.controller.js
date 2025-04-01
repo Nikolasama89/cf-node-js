@@ -53,5 +53,19 @@ exports.update = async(req, res) => {
     console.log("Problem in updating product", err)
     res.status(400).json({status: false, data: err})
   }
+}
 
+exports.delete = async(req, res) => {
+  const username = req.params.username
+  const productId = req.params._id
+
+  console.log("Delete product from User: ", username)
+
+  try {
+    const result = await User.updateOne({username: username}, {$pull: {products: {_id: productId}}})
+    res.status(200).json({status: true, data: result})
+  } catch (err) {
+    console.log("Problem in deleting product", err)
+    res.status(400).json({status: false, data: err})
+  }
 }
