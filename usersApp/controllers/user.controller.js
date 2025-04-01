@@ -25,10 +25,12 @@ exports.findOne = async(req, res) => {
     if(result) {
       res.json({status: true, data: result});
     } else{
+      // Δεν επιστρεφει err γιατι μπορει να επιστρεψει κενο δλδ να μην υπαρχει user
       result.status(400).json({status: false, data: "User not exist"})
     }
   } catch(err) {
     console.log("Problem in finding user", err)
+    // Ενω εδω επιστρεφω err γιατι υπαρχει προβλημα στο ερωτημα μου
     res.status(400).json({status: false, data: err})
   }
 }
@@ -85,6 +87,7 @@ exports.update = async(req, res) => {
   }
 }
 
+// Γινεται με αυτη την κληση http://localhost:3000/api/users/nikos5
 exports.deleteByUsername = async(req, res) => {
   const username = req.params.username
   console.log("Delete user with username", username)
@@ -98,6 +101,7 @@ exports.deleteByUsername = async(req, res) => {
   }
 }
 
+// Γινεται με αυτη την κληση http://localhost:3000/api/users/nikos5/email/nik@apple.gr
 exports.deleteByEmail = async (req, res) => {
   const username = req.params.username
   const email = req.params.email
