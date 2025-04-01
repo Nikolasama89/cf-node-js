@@ -47,7 +47,7 @@ exports.update = async(req, res) => {
   console.log("Update products for username: ", username)
 
   try {
-    const result = await User.updateOne({username: username, "products._id": productId}, {$set: {"products.$.quantity": productQuantity}},{new: true})
+    const result = await User.updateOne({username: username, "products._id": productId}, {$set: {"products.$.quantity": productQuantity}})
     res.status(200).json({status: true, data: result})
   } catch (err) {
     console.log("Problem in updating product", err)
