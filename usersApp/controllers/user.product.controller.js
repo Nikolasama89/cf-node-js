@@ -47,7 +47,7 @@ exports.update = async(req, res) => {
   console.log("Update products for username: ", username)
 
   try {
-    const result = await User.updateOne({username: username, "products._id": productId}, {$set: {"products.$.quantity": productQuantity}})
+    const result = await User.updateOne({username: username, "products._id": productId}, {$set: {"products.$.quantity": productQuantity}},{new: true})
     res.status(200).json({status: true, data: result})
   } catch (err) {
     console.log("Problem in updating product", err)
@@ -68,4 +68,36 @@ exports.delete = async(req, res) => {
     console.log("Problem in deleting product", err)
     res.status(400).json({status: false, data: err})
   }
+}
+
+exports.stats1 = async(req, res) => {
+  console.log("For each user return total amount and num of products")
+
+  try {
+    const result = await User.aggregate([
+      {$unwind: "$products"},
+      {
+        $project: {
+          _id:1,
+          username:1,
+          products:1
+        }
+      },
+      {
+        $group: {
+          _id: {username: "$username", product: "$products.product"},
+          totalAmount: {
+            $sum: { $multiply: ["$products.cost", "$products.quantity"]}
+          }
+        }
+      },
+      {$sort: {"_id.username": 1, "$_id.product": 1}}
+    ])
+    res.status(200).json({status: true, data: result})
+  } catch (err) {
+    console.log("Problem in stats1", err);
+    res.status(400).json({status: true, data: err})
+    
+  }
+  
 }
