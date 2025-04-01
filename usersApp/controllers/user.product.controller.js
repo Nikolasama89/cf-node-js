@@ -38,3 +38,20 @@ exports.create = async(req, res) => {
     res.status(400).json({status:false, data: err})
   }
 }
+
+exports.update = async(req, res) => {
+  
+  const username = req.body.username
+  const productId = req.body.product._id
+  const productQuantity = req.body.product.quantity
+  console.log("Update products for username: ", username)
+
+  try {
+    const result = await User.updateOne({username: username, "products._id": productId}, {$set: {"products.$.quantity": productQuantity}})
+    res.status(200).json({status: true, data: result})
+  } catch (err) {
+    console.log("Problem in updating product", err)
+    res.status(400).json({status: false, data: err})
+  }
+
+}
