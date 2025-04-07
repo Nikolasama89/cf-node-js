@@ -5,8 +5,18 @@ exports.options = {
   "components": {
     "schemas": {
       User: m2s(User)
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
   },
+  "security": [
+    {"bearerAuth": []}
+  ],
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
@@ -61,6 +71,40 @@ exports.options = {
                 }
               }
             }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "Data of Users that we want to create",
+        "requestBody": {
+          "description": "Json with user data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {"type":"string"},
+                  "password": {"type":"string"},
+                  "name": {"type":"string"},
+                  "surname": {"type":"string"},
+                  "email": {"type":"string"},
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "area": {"type":"string"},
+                      "road": {"type":"string"}
+                    }
+                  }
+                },
+                "required": ["username", "password", "name", "surname", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "JSON of new user"
           }
         }
       }    
