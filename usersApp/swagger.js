@@ -130,6 +130,63 @@ exports.options = {
             }
           }
         }
+      },
+      "patch": {
+        "tags": ["Users"],
+        "description": "Update User",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": "Username of User that can update",
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "Data of user to update",
+          "content": {
+            "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {"type": "string"},
+                "name": {"type": "string"},
+                "surname": {"type": "string"},
+                "email": {"type": "string"},
+                "address": {
+                  "area": {"type": "string"},
+                  "road": {"type": "string"}
+                }
+              },
+              "required": ["email"]
+            }
+          },
+          "responses": {
+            "200": {
+            "description": "Updated User"
+          }
+      }
+        }
+      } 
+      },
+      "delete": {
+        "tags": ["Users"],
+        "description": "Delete user from DB",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": " User to delete",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          }
+        }
       }
     },
     "/api/auth/login": {
