@@ -214,6 +214,28 @@ exports.options = {
           }
         }
       }
+    },
+    "api/user-product/{username}": {
+      "get": {
+        "tags": ["Users and Products"],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "decription": "Find user and products",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "desciption": "User and products",
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      }
     }
   }
 }
