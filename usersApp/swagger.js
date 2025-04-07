@@ -87,6 +87,32 @@ exports.options = {
           }
         }
       }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Login User",
+        "requestBody": {
+          "description": "User send username and password and for response we have jwt token",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {"type": "string"},
+                  "password": {"type": "string"}
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token returned"
+          }
+        }
+      }
     }
   }
 }
