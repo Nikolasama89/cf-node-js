@@ -33,6 +33,7 @@
 // Third Example
 // Combine Transport to print at console, save to a file and save to mongoDB
 require('winston-daily-rotate-file');
+require("winston-mongodb")
 const {format, createLogger, transports} = require("winston");
 const {combine, timestamp, label, printf, prettyPrint} = format;
 const CATEGORY = "Products app logs";
@@ -56,6 +57,30 @@ const logger = createLogger({
     new transports.File(
       {
         filename: "logs/example.log"
+      }
+    ),
+    // IN CASE WE WANTED ANOTHER FILE SPECIFIED WITH LEVEL: WARN MESSAGES
+    new transports.File(
+      {
+        level: "warn",
+        filename:"logs/warn.log"
+      }
+    ),
+    new transports.File(
+      {
+      level: "info",
+      filename: "logs/info.log"
+      }
+    ),
+    new transports.MongoDB(
+      {
+        level: "warn",
+        db: process.env.MONGODB_URI,
+        collection: "server_logs", 
+        format: format.combine(
+          format.timestamp(),
+          format.json()
+        )
       }
     )
   ]

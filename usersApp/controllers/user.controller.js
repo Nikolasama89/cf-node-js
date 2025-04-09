@@ -11,10 +11,10 @@ exports.findAll = async(req, res) => {
     const result = await userService.findAll()
     res.status(200).json({status: true, data: result});
     logger.info("Success in reading all users")
-    logger.warn("Success in reading all users")
+    //logger.warn("Success in reading all users")
   } catch (err) {
     console.log("Problem in reading users", err)
-    logger.info("ERROR, Problem in reading all users.", err)
+    logger.error("ERROR, Problem in reading all users.", err)
     res.status(400).json({status: false, data: err});
   }
 }
