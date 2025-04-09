@@ -10,7 +10,8 @@ exports.findAll = async(req, res) => {
     // const result = await User.find()
     const result = await userService.findAll()
     res.status(200).json({status: true, data: result});
-    logger.info("INFOS, Success in reading all users")
+    logger.info("Success in reading all users")
+    logger.warn("Success in reading all users")
   } catch (err) {
     console.log("Problem in reading users", err)
     logger.info("ERROR, Problem in reading all users.", err)
