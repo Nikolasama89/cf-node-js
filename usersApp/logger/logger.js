@@ -30,6 +30,9 @@
 //   transports: [new transports.Console()]
 // })
 
+// For Jest tests
+// require("dotenv").config()
+
 // Third Example
 // Combine Transport to print at console, save to a file and save to mongoDB
 require('winston-daily-rotate-file');
