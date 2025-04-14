@@ -44,3 +44,27 @@ describe("Requests for /api/users", () => {
     expect(res.body.data.length).toBeGreaterThan(0)
   }, 30000)
 })
+
+describe("Requests for /api/users/:username", () => {
+  let token 
+
+  beforeAll(() => {
+    user = {
+      username: "admin",
+      email: "admin@aueb.gr",
+      roles: ["EDITOR", "READER", "ADMIN"]
+    }
+    token = authService.generateAccessToken(user)
+  })
+
+  it("Get Returns specific user", async() => {
+    const res = await request(app)
+      .get("/api/users/user1")
+      .set("Authorization", `Bearer ${token}`)
+    
+      expect(res.statusCode).toBe(200)
+      expect(res.body.status).toBeTruthy()
+      expect(res.body.data.username).toBe("user1")
+      expect(res.body.data.email).toBe("user1@aueb.gr")
+  }, 30000)
+})
