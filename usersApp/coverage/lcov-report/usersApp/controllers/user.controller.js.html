@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.22% </span>
+                <span class="strong">70.96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/62</span>
+                <span class='fraction'>44/62</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.45% </span>
+                <span class="strong">70.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/61</span>
+                <span class='fraction'>43/61</span>
             </div>
         
             
@@ -256,13 +256,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,9 +268,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -281,12 +281,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -377,12 +377,12 @@ exports.create = async(req, res) =&gt; {
   }
 }
 &nbsp;
-exports.update = <span class="fstat-no" title="function not covered" >as</span>ync(req, res) =&gt; {
-  const username = <span class="cstat-no" title="statement not covered" >req.body.username</span>
+exports.update = async(req, res) =&gt; {
+  const username = req.body.username
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  console.log("Update User with username: ", username)</span>
+  console.log("Update User with username: ", username)
 &nbsp;
-  const updateUser = <span class="cstat-no" title="statement not covered" >{</span>
+  const updateUser = {
     name: req.body.name,
     surname: req.body.surname,
     email: req.body.email,
@@ -392,9 +392,9 @@ exports.update = <span class="fstat-no" title="function not covered" >as</span>y
     }
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const result = <span class="cstat-no" title="statement not covered" >await User.findOneAndUpdate({username: username}, updateUser, {new: true})</span>
-<span class="cstat-no" title="statement not covered" >    res.status(200).json({status: true, data: result})</span>
+  try {
+    const result = await User.findOneAndUpdate({username: username}, updateUser, {new: true})
+    res.status(200).json({status: true, data: result})
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    console.log("Problem in updating user", err)</span>
 <span class="cstat-no" title="statement not covered" >    res.status(400).json({status: false, data: err})</span>
@@ -402,13 +402,13 @@ exports.update = <span class="fstat-no" title="function not covered" >as</span>y
 }
 &nbsp;
 // Γινεται με αυτη την κληση http://localhost:3000/api/users/nikos5
-exports.deleteByUsername = <span class="fstat-no" title="function not covered" >as</span>ync(req, res) =&gt; {
-  const username = <span class="cstat-no" title="statement not covered" >req.params.username</span>
-<span class="cstat-no" title="statement not covered" >  console.log("Delete user with username", username)</span>
+exports.deleteByUsername = async(req, res) =&gt; {
+  const username = req.params.username
+  console.log("Delete user with username", username)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const result = <span class="cstat-no" title="statement not covered" >await User.findOneAndDelete({username: username})</span>
-<span class="cstat-no" title="statement not covered" >    res.status(200).json({status: true, data: result})</span>
+  try {
+    const result = await User.findOneAndDelete({username: username})
+    res.status(200).json({status: true, data: result})
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    console.log("Problem in deleting user", err)</span>
 <span class="cstat-no" title="statement not covered" >    res.status(400).json({status: false, data: err})</span>
@@ -436,7 +436,7 @@ exports.deleteByEmail = <span class="fstat-no" title="function not covered" >as<
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-15T16:29:12.947Z
+                at 2025-04-15T16:49:43.048Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
