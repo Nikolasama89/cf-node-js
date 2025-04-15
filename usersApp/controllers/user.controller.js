@@ -43,7 +43,8 @@ exports.create = async(req, res) => {
   console.log("Create User")
   let data = req.body
   const SaltOrRounds = 10
-  const hashedPassword = await bcrypt.hash(data.password, SaltOrRounds)
+  let hashedPassword = ""
+  if (data.password) hashedPassword = await bcrypt.hash(data.password, SaltOrRounds) 
 
   const newUser = new User({
     username: data.username,
@@ -60,10 +61,10 @@ exports.create = async(req, res) => {
   try {
     const result = await newUser.save()
 
-    res.json({status: true, data: result})
+    res.status(200).json({status: true, data: result})
   } catch (err) {
     console.log("Problem in creating User", err)
-    res.json({status: false, data:err})
+    res.status(400).json({status: false, data:err})
   }
 }
 

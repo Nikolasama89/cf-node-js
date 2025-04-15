@@ -72,4 +72,85 @@ describe("Requests for /api/users/:username", () => {
       expect(res.body.data.username).toBe(result.username)
       expect(res.body.data.email).toBe(result.email)
   }, 30000)
+
+  it("POST Creates a user", async () => {
+    const res = await request(app)
+      .post("/api/users")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        "username": "test5",
+        "password": "12345",
+        "name": "test5 name",
+        "surname": "test5 surname",
+        "email": "test5@aueb.gr",
+        "address": {
+          "area": "area1",
+          "road": "road5"
+        }
+      })
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body.status).toBeTruthy()
+  }, 50000)
+
+  it("POST Creates a user with same username", async()=>{
+    const res = await request(app)
+      .post('/api/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        username: 'test5',
+        password:'12345',
+        name: 'new name',
+        surname:'new surname',
+        email:'new@aueb.gr',
+        address: {
+          area: 'xxxx',
+          road: 'yyyy'
+        }
+      })
+
+      expect(res.statusCode).toBe(400);
+      expect(res.body.status).not.toBeTruthy()
+  })
+
+  it("Post Creates a User with same email", async() => {
+    const res = await request(app)
+      .post("/api/users")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        username: "test6",
+        password: "12345",
+        name: "name test6",
+        surname: "surname test6",
+        email: "test5@aueb.gr",
+        address: {
+          area: "area23",
+          road: "road23"
+        }
+      })
+
+      expect(res.statusCode).toBe(400)
+      expect(res.body.status).not.toBeTruthy()
+  })
+
+  it("POST Creates a user with empty name, surname, password", async () => {
+    const res = await request(app)
+      .post("/api/users")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        username: "test6",
+        password: "",
+        name: "",
+        surname: "",
+        email: "test6@aueb.gr",
+        address: {
+          area: "area23",
+          road: "road23",
+        }
+      })
+
+      expect(res.statusCode).toBe(400)
+      expect(res.body.status).not.toBeTruthy()
+  })
+
 })
