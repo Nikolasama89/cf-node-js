@@ -3,6 +3,7 @@ const { OAuth2Client } = require("google-auth-library")
 
 function generateAccessToken(user) {
 
+  // payload of jwt token
   console.log("Auth Service: ", user)
   const payload = {
     username: user.username,

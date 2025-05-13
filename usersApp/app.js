@@ -16,7 +16,7 @@ const auth = require("./routes/auth.routes")
 app.use(cors({
   // ΔΕΝ ΕΙΝΑΙ ΚΑΛΗ ΠΡΑΚΤΙΚΗ ΤΟ ΑΣΤΕΡΑΚΙ, ΚΑΛΟ ΕΙΝΑΙ ΝΑ ΞΕΡΟΥΜΕ ΚΑΙ ΝΑ ΔΗΛΩΣΟΥΜΕ ΤΟ PORT
   // origin: "*"
-  origin: ["http://localhost:4200"]
+  origin: ["http://localhost:4200", "http://localhost:3000"]
 }))
 
 app.use("/api/auth", auth)
